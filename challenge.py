@@ -7,16 +7,12 @@ def array_print(test) :
 
 def array_create() :
     num_set = [num + 1 for num in range(DIM)]
-    temp_num_set = []
+    num_set_array = [[list(num_set) for _ in range(DIM)] for _ in range(DIM)]
     chal = [[0 for _ in range(DIM)] for _ in range(DIM)]
 
-    # Setting first row
-    temp_num_set = list(num_set)
-    rand.shuffle(temp_num_set)
-    chal[0] = list(temp_num_set)
-
-    # Rest of the rows
-    
+    for row in range(DIM) :
+        for col in range(DIM) :
+            chal[row][col] = num_set_array[row][col][rand.randint(0, DIM - 1)]
 
     return chal
 
