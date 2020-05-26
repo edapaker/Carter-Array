@@ -1,5 +1,6 @@
 import random as rand
 DIM = 4
+EXIT_SUCCESS = True
 
 def array_print(test) :
     for line in test :
@@ -12,13 +13,33 @@ def array_create() :
 
     for row in range(DIM) :
         for col in range(DIM) :
-            chal[row][col] = num_set_array[row][col][rand.randint(0, DIM - 1)]
+            index = rand.randint(0, len(num_set_array[row][col]) - 1)
+            chal[row][col] = num_set_array[row][col][index]
 
-    return chal
+            for across in range(col + 1, DIM) :
+                try :
+                    num_set_array[row][across].remove(chal[row][col])
+                except ValueError :
+                    pass
+
+            for down in range(row + 1, DIM) :
+                try :
+                    num_set_array[down][col].remove(chal[row][col])
+                except ValueError :
+                    pass
+
+    return chal, EXIT_SUCCESS
 
 def main () :
     rand.seed()
-    chal = array_create()
+
+    result = False
+    while not result :
+        try :
+            chal, result = array_create()
+        except :
+            pass
+    
     array_print(chal)
 
 if __name__ == "__main__" :
